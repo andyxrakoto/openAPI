@@ -145,11 +145,14 @@ paths:
                       type: integer
                     name:
                       type: string
+                    lastname:
+                      type: string
                     teach:
                       type: string
                 example:
                   - id: 1
-                    name: Tokimahery
+                    name: RAMAROZAKA
+                    lastname: Tokimahery
                     teach: PROG1,PROG2,WEB1,DONNEES1
 components:
   schemas:
