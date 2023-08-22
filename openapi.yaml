@@ -3,7 +3,6 @@ info:
   title: Onboarding API 3.0
   description: |
     STD22044
-
   termsOfService: http://STD22044.com
   contact:
     email: apiteam@swagger.io
@@ -16,25 +15,10 @@ externalDocs:
   url: http://swagger.io
 servers:
   - url: http://STD22044.com
-tags:
-  - name: pet
-    description: Everything about your Pets
-    externalDocs:
-      description: Find out more
-      url: http://swagger.io
-  - name: store
-    description: Access to Petstore orders
-    externalDocs:
-      description: Find out more about our store
-      url: http://swagger.io
-  - name: user
-    description: Operations about user
 paths:
   /pet/findByStatus:
     get:
-      tags:
-        - pet
-      summary: Finds Pets by status
+      summary: Finds Students by status
       description: Multiple status values can be provided with comma-separated strings
       operationId: findPetsByStatus
       parameters:
@@ -69,8 +53,7 @@ paths:
               example:
                 - id: 1
                   name: Andy
-                  birthdate: 2005-10-28
-
+                  birthdate: 2005-10-28T00:00:00.000Z
         '400':
           description: Invalid status value
     post:
@@ -94,6 +77,80 @@ paths:
           description: Invalid request
         '409':
           description: Student already exists
+    put:
+      summary: Update student by status
+      operationId: updateStudentByStatus
+      parameters:
+        - name: status
+          in: query
+          description: Status values that need to be considered for filter
+          required: true
+          explode: true
+          schema:
+            type: string
+            enum:
+              - available
+              - pending
+              - sold
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+      responses:
+        '200':
+          description: Student updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+        '400':
+          description: Invalid status value
+    delete:
+      summary: Delete student by status
+      operationId: deleteStudentByStatus
+      parameters:
+        - name: status
+          in: query
+          description: Status values that need to be considered for filter
+          required: true
+          explode: true
+          schema:
+            type: string
+            enum:
+              - available
+              - pending
+              - sold
+      responses:
+        '204':
+          description: Student deleted successfully
+        '400':
+          description: Invalid status value
+  /teacher:
+    get:
+      summary: Get list of teachers
+      operationId: getTeachers
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    teach:
+                      type: string
+                example:
+                  - id: 1
+                    name: Tokimahery
+                    teach: PROG1,PROG2,WEB1,DONNEES1
 components:
   schemas:
     Student:
@@ -105,5 +162,10 @@ components:
           type: string
         birthdate:
           type: string
-      
-     
+    Teacher:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
