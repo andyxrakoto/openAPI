@@ -16,7 +16,7 @@ externalDocs:
 servers:
   - url: http://STD22044.com
 paths:
-  /pet/findByStatus:
+  /students/findByStatus:
     get:
       summary: Finds Students by status
       description: Multiple status values can be provided with comma-separated strings
